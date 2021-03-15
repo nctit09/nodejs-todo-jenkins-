@@ -10,7 +10,9 @@
         }
         stage("Send Result to email") {
             steps {
-                emailext body: 'alo alo', recipientProviders: [developers()], subject: 'Test ABC', to: 'stevenguyenaz@gmail.com'
+                emailext body: '''${DEFAULT_CONTENT}
+${BUILD_LOG}
+''', recipientProviders: [developers()], subject: '${DEFAULT_SUBJECT}', to: 'stevenguyenaz@gmail.com'
                 
             }
         }
