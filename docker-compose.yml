@@ -1,0 +1,21 @@
+version: "3.3"
+
+services:
+  db:
+    image: postgres:alpine
+    # restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - dbsdata2:/var/lib/postgresql/data
+  app:
+    image: node-todolist:1.0
+    # restart: always
+    container_name: node-todolist
+    ports:
+      - "8181:8080"
+    depends_on:
+      - db
+  volumes:
+    dbsdata2:
